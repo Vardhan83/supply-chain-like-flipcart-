@@ -1,0 +1,56 @@
+.search-filters {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .product-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  
+  .product-card {
+    width: 300px;
+  }
+  
+  .update-stock-field {
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+  
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 20px;
+  
+    .stat-card {
+      text-align: center;
+    }
+  }
+  
+  .low-stock {
+    color: #f44336;
+    font-weight: bold;
+  }
+  
+  table {
+    width: 100%;
+    margin-top: 20px;
+  }
+  
+  .mat-column-actions {
+    width: 180px;
+    text-align: right;
+  }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 20px;
+  
+    .stat-card {
+      text-align: center;
+    }
+  }

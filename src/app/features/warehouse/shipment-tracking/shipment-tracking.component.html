@@ -1,0 +1,44 @@
+<mat-card>
+    <mat-card-title>Shipment Tracker</mat-card-title>
+    <mat-card-content>
+      <table mat-table [dataSource]="shipments" class="mat-elevation-z8">
+  
+        <!-- Tracking Number -->
+        <ng-container matColumnDef="trackingNumber">
+          <th mat-header-cell *matHeaderCellDef> Tracking # </th>
+          <td mat-cell *matCellDef="let shipment"> {{ shipment.trackingNumber }} </td>
+        </ng-container>
+  
+        <!-- Carrier -->
+        <ng-container matColumnDef="carrier">
+          <th mat-header-cell *matHeaderCellDef> Carrier </th>
+          <td mat-cell *matCellDef="let shipment"> {{ shipment.carrier }} </td>
+        </ng-container>
+  
+        <!-- Shipment Date -->
+        <ng-container matColumnDef="shipmentDate">
+          <th mat-header-cell *matHeaderCellDef> Shipment Date </th>
+          <td mat-cell *matCellDef="let shipment"> {{ shipment.shipmentDate }} </td>
+        </ng-container>
+  
+        <!-- Status -->
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef> Status </th>
+          <td mat-cell *matCellDef="let shipment">
+            <mat-form-field appearance="fill" class="status-dropdown">
+              <mat-select [(ngModel)]="shipment.status">
+                <mat-option *ngFor="let status of statuses" [value]="status">
+                  {{ status }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <button mat-raised-button color="primary" (click)="updateStatus(shipment)">Update</button>
+          </td>
+        </ng-container>
+  
+        <tr mat-header-row *matHeaderRowDef="['trackingNumber', 'carrier', 'shipmentDate', 'status']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['trackingNumber', 'carrier', 'shipmentDate', 'status'];"></tr>
+      </table>
+    </mat-card-content>
+  </mat-card>
+  

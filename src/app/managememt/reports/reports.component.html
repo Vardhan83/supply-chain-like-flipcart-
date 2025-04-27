@@ -1,0 +1,19 @@
+<mat-card>
+    <mat-card-title>Management Reports</mat-card-title>
+    <mat-card-content>
+      
+      <h3>Total Sales: ₹{{ totalSales }}</h3>
+  
+      <h3>Inventory Summary:</h3>
+      <ul let inventorySummary="let summary of inventorySummary">
+        <li>Total Products:   <br>    <span>{{ totalProducts }} -- products</span> </li><hr>
+        <li>Total price of products in inventory:  <br><span>{{totalValue| currency}} value</span></li><hr>
+        <li>Low Stock Products:     <br>  <span> {{ lowStockProducts }} -- products</span> </li><hr>
+        <li>Out of Stock Products:  <br>    <span>{{ outOfStockProducts }} -- products</span> </li>
+
+      </ul>
+      
+  
+    </mat-card-content>
+  </mat-card>
+  

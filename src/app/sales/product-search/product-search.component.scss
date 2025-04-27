@@ -1,0 +1,21 @@
+.search-filters {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .product-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  
+  .product-card {
+    width: 280px;
+  }
+  
+  .low-stock {
+    color: red;
+    font-weight: bold;
+  }
+  

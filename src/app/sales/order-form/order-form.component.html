@@ -1,0 +1,89 @@
+<!-- <mat-card>
+    <mat-card-title>Place New Order</mat-card-title>
+    <mat-card-content>
+  
+      <form>
+  
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Customer Name</mat-label>
+          <input matInput [(ngModel)]="customerName" name="customerName" required />
+        </mat-form-field>
+  
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Shipping Address</mat-label>
+          <input matInput [(ngModel)]="shippingAddress" name="shippingAddress" required />
+        </mat-form-field>
+  
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Order Date</mat-label>
+          <input matInput [value]="orderDate" readonly />
+        </mat-form-field>
+  
+        <div *ngFor="let item of orderItems; let i = index" class="item-row">
+  
+          <mat-card class="product-item">
+            <mat-card-title>
+              {{ cartProducts[i].name }}
+            </mat-card-title>
+  
+            <mat-card-content>
+              Price: ₹{{ cartProducts[i].price }}
+            </mat-card-content>
+  
+            <mat-form-field appearance="outline" class="quantity-field">
+              <mat-label>Quantity</mat-label>
+              <input matInput type="number" min="1" [(ngModel)]="orderItems[i].quantity" name="quantity-{{i}}" />
+            </mat-form-field>
+          </mat-card>
+  
+        </div>
+  
+      </form>
+  
+    </mat-card-content>
+  
+    <mat-card-actions>
+      <h3>Total Price: ₹{{ calculateTotalPrice() }}</h3>
+      <button mat-raised-button color="accent" (click)="placeOrder()">Place Order</button>
+    </mat-card-actions>
+  </mat-card>
+   -->
+   <mat-card>
+    <mat-card-title>Place Your Order</mat-card-title>
+    <mat-card-content>
+  
+      <!-- Customer Name -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Customer Name</mat-label>
+        <input matInput [(ngModel)]="customerName" name="customerName" required />
+      </mat-form-field>
+  
+      <!-- Shipping Address -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Shipping Address</mat-label>
+        <input matInput [(ngModel)]="shippingAddress" name="shippingAddress" required />
+      </mat-form-field>
+  
+      <!-- Order Date -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Order Date</mat-label>
+        <input matInput [value]="orderDate" readonly />
+      </mat-form-field>
+  
+      <h3>Cart Items:</h3>
+      <ul>
+        <li *ngFor="let item of orderItems()">
+          {{ getProductName(item.productId) }} × {{ item.quantity }}
+          = ₹{{ item.quantity * item.price }}
+        </li>
+      </ul>
+  
+      <h3>Total Amount: ₹{{ getTotalAmount() }}</h3>
+  
+    </mat-card-content>
+  
+    <mat-card-actions align="end">
+      <button mat-raised-button color="primary" (click)="placeOrder()">Place Order</button>
+    </mat-card-actions>
+  </mat-card>
+  

@@ -1,0 +1,21 @@
+.full-width {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  
+  .item-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .product-item {
+    flex: 1;
+    padding: 1rem;
+  }
+  
+  .quantity-field {
+    width: 150px;
+    margin-left: 1rem;
+  }
+  
