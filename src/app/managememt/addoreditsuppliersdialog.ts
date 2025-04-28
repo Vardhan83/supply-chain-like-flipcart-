@@ -24,7 +24,7 @@ import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/materia
 
     <mat-dialog-actions align="end">
       <button mat-button (click)="cancel()">Cancel</button>
-      <button mat-button color="primary" (click)="save()">Save</button>
+      <button mat-button color="primary" (click)="save()" >Save</button>
     </mat-dialog-actions>
   `
 })

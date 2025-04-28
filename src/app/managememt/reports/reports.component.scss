@@ -4,13 +4,23 @@ mat-card {
   }
 li{
     font-size: large;
+    font-weight: bold;
+    list-style-type:none;
 
 }
 span{
-    font-stretch: condensed;
+    
     font-size: large;
+    font-weight: 100;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: start;
 
+}
+h3{
+    display: flex;
+    justify-content: baseline;
+    justify-content: center;
+    font-weight: bold;
+    gap: 50px;
 }

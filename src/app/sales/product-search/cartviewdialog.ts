@@ -2,11 +2,12 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-cart-dialog',
   standalone: true,
-  imports: [CommonModule, MatButtonModule,MatDialogModule],
+  imports: [CommonModule, MatButtonModule,MatDialogModule,MatTooltipModule],
   template: `
     <h2 mat-dialog-title>Your Cart</h2>
     <mat-dialog-content>
@@ -20,8 +21,8 @@ import { MatButtonModule } from '@angular/material/button';
     </mat-dialog-content>
 
     <mat-dialog-actions align="end">
-      <button mat-button color="warn" (click)="clearCart()">Clear Cart</button>
-      <button mat-button color="primary" (click)="placeOrder()">Place Order</button>
+      <button mat-button color="warn" (click)="clearCart()" matTooltip="Clear Cart">Clear Cart</button>
+      <button mat-button color="primary" (click)="placeOrder()" matTooltip="Place Order">Place Order</button>
     </mat-dialog-actions>
   `
 })

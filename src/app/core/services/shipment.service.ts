@@ -27,4 +27,10 @@ export class ShipmentService {
       headers: { 'Content-Type': 'application/json' }
     });
   }
+
+
+  // 🔵 Create shipment manually from order ID (✅ newly added API)
+  createShipmentFromOrder(orderId: number): Observable<Shipment> {
+    return this.http.post<Shipment>(`${this.apiUrl}/create-from-order/${orderId}`, {});
+  }
 }

@@ -85,5 +85,9 @@ export class ProductService {
       })
     );
   }
+  assignSupplierToProduct(productId: number, supplierId: number) {
+    return this.http.put(`${this.apiUrl}/${productId}/supplier/${supplierId}`, {});
+  }
+  
 
 }

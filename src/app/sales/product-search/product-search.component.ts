@@ -12,6 +12,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ProductService } from '../../core/services/product.service';
 import { Product } from '../../models/product';
 import { CartDialogComponent } from '../../sales/product-search/cartviewdialog'; // We'll create this below
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-product-search',
@@ -25,7 +26,8 @@ import { CartDialogComponent } from '../../sales/product-search/cartviewdialog';
     MatButtonModule,
     MatIconModule,
     MatSelectModule,
-    MatDialogModule
+    MatDialogModule,
+    MatTooltipModule
   ],
   templateUrl: './product-search.component.html',
   styleUrls: ['./product-search.component.scss']

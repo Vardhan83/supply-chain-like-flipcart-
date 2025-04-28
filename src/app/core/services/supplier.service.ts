@@ -1,12 +1,4 @@
-// import { Injectable } from '@angular/core';
 
-// @Injectable({
-//   providedIn: 'root'
-// })
-// export class SupplierService {
-
-//   constructor() { }
-// }
 import { Supplier } from '../../models/supplier';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -42,12 +34,15 @@ export class SupplierService {
   }
 
   // Assign products to a supplier
-  assignProductsToSupplier(supplierId: number, productIds: number[]): Observable<Supplier> {
-    return this.http.put<Supplier>(`${this.apiUrl}/${supplierId}/products`, productIds);
+  // assignProductsToSupplier(supplierId: number, productIds: number[]): Observable<Supplier> {
+  //   return this.http.put<Supplier>(`${this.apiUrl}/${supplierId}/products`, productIds);
+  // }
+  assignProductsToSupplier(supplierId: number, productIds: number[]): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${supplierId}/products`, productIds);
   }
-
   // Remove a product from a supplier
   removeProductFromSupplier(supplierId: number, productId: number): Observable<Supplier> {
     return this.http.delete<Supplier>(`${this.apiUrl}/${supplierId}/products/${productId}`);
   }
+  
 }

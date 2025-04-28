@@ -1,121 +1,99 @@
-<!-- <mat-card>
-    <mat-card-title>Supplier Performance</mat-card-title>
+
+<div class="container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        <mat-icon>local_shipping</mat-icon>
+        Supplier Management
+      </mat-card-title>
+      <mat-card-actions align="end">
+        <button mat-raised-button color="primary" (click)="openAddSupplierDialog()" matTooltip="Add Supplier">
+          <mat-icon>add</mat-icon> Add Supplier
+        </button>
+      </mat-card-actions>
+    </mat-card-header>
+
     <mat-card-content>
-  
-      <div *ngFor="let supplier of suppliers" class="supplier-card">
-        <h3>{{ supplier.name }}</h3>
-        <p>Contact: {{ supplier.contactInfo }}</p>
-        <!-- Later you can add delivery performance stats here
-      </div>
-  
+      @if (isLoading()) {
+        <div class="loading-spinner">
+          <mat-spinner diameter="40"></mat-spinner>
+          <span>Loading suppliers...</span>
+        </div>
+      } @else {
+        <table mat-table [dataSource]="suppliers()" class="mat-elevation-z8">
+          <!-- ID Column -->
+          <ng-container matColumnDef="supplierId">
+            <th mat-header-cell *matHeaderCellDef>ID</th>
+            <td mat-cell *matCellDef="let supplier">{{ supplier.supplierId }}</td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>Name</th>
+            <td mat-cell *matCellDef="let supplier">{{ supplier.name }}</td>
+          </ng-container>
+
+          <!-- Contact Info Column -->
+          <ng-container matColumnDef="contactInfo">
+            <th mat-header-cell *matHeaderCellDef>Contact Info</th>
+            <td mat-cell *matCellDef="let supplier">{{ supplier.contactInfo || 'N/A' }}</td>
+          </ng-container>
+
+          <!-- Products Column -->
+          <ng-container matColumnDef="products">
+            <th mat-header-cell *matHeaderCellDef>Products</th>
+            <td mat-cell *matCellDef="let supplier">
+              <div class="products-cell">
+                @if (supplier.products && supplier.products.length > 0) {
+                  <mat-chip-listbox>
+                    <mat-chip>
+                      {{ supplier.products.length }} product(s)
+                    
+                      
+                        
+                    </mat-chip>
+                  </mat-chip-listbox>
+                } @else {
+                  <span class="no-products">
+                    {{ supplier.productCount || 0 }} products
+                  </span>
+                }
+                <button mat-icon-button 
+                        (click)="openViewProductsDialog(supplier)"
+                        matTooltip="View products">
+                  <mat-icon>visibility</mat-icon>
+                </button>
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- Actions Column -->
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <td mat-cell *matCellDef="let supplier" class="actions-cell">
+              <button mat-icon-button 
+                      (click)="openEditSupplierDialog(supplier)" 
+                      matTooltip="Edit">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button 
+                      (click)="openAssignProductsDialog(supplier)" 
+                      matTooltip="Assign Products">
+                <mat-icon>add_shopping_cart</mat-icon>
+              </button>
+              <button mat-icon-button 
+                      (click)="deleteSupplier(supplier)" 
+                      matTooltip="Delete" 
+                      color="warn">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      }
     </mat-card-content>
   </mat-card>
-   -->
-   <!-- <mat-card>
-    <mat-card-title>Supplier Management</mat-card-title>
-    <mat-card-content>
-  
-      <button mat-raised-button color="primary" (click)="openAddSupplierDialog()">
-        <mat-icon>person_add</mat-icon> Add New Supplier
-      </button>
-  
-      <table mat-table [dataSource]="suppliers()" class="mat-elevation-z8">
-  
-        <!-- Supplier ID 
-        <ng-container matColumnDef="supplierId">
-          <th mat-header-cell *matHeaderCellDef>ID</th>
-          <td mat-cell *matCellDef="let supplier">{{ supplier.supplierId }}</td>
-        </ng-container>
-  
-        <!-- Supplier Name
-        <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef>Name</th>
-          <td mat-cell *matCellDef="let supplier">{{ supplier.name }}</td>
-        </ng-container>
-  
-        <!-- Products Count -->
-        <!-- <ng-container matColumnDef="products">
-          <th mat-header-cell *matHeaderCellDef>Products</th>
-          <td mat-cell *matCellDef="let supplier">{{ supplier.products?.length || 0 }}</td>
-        </ng-container>
-   -->
-        <!-- Actions -
-        <ng-container matColumnDef="actions">
-          <th mat-header-cell *matHeaderCellDef>Actions</th>
-          <td mat-cell *matCellDef="let supplier">
-            <button mat-icon-button color="primary" (click)="openEditSupplierDialog(supplier)">
-              <mat-icon>edit</mat-icon>
-            </button>
-  
-            <button mat-icon-button color="accent" (click)="openAssignProductsDialog(supplier)">
-              <mat-icon>add_link</mat-icon>
-            </button>
-          </td>
-        </ng-container>
-  
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  
-      </table>
-  
-    </mat-card-content>
-  </mat-card>
-   -->
-   <mat-card>
-    <mat-card-title>Supplier Management</mat-card-title>
-    <mat-card-content>
-  
-      <button mat-raised-button color="primary" (click)="openAddSupplierDialog()">
-        <mat-icon>person_add</mat-icon> Add New Supplier
-      </button>
-  
-      <table mat-table [dataSource]="suppliers()" class="mat-elevation-z8">
-  
-        <!-- Supplier ID -->
-        <ng-container matColumnDef="supplierId">
-          <th mat-header-cell *matHeaderCellDef>ID</th>
-          <td mat-cell *matCellDef="let supplier">{{ supplier.supplierId }}</td>
-        </ng-container>
-  
-        <!-- Supplier Name -->
-        <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef>Name</th>
-          <td mat-cell *matCellDef="let supplier">{{ supplier.name }}</td>
-        </ng-container>
-  
-        <!-- Products -->
-        <ng-container matColumnDef="products">
-          <th mat-header-cell *matHeaderCellDef>Products</th>
-          <td mat-cell *matCellDef="let supplier">
-            {{ getProductNames(supplier.products) }}
-          </td>
-        </ng-container>
-  
-        <!-- Actions -->
-        <!-- Actions -->
-    <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef>Actions</th>
-        <td mat-cell *matCellDef="let supplier">
-        <button mat-icon-button color="primary" (click)="openEditSupplierDialog(supplier)">
-            <mat-icon>edit</mat-icon>
-        </button>
-    
-        <button mat-icon-button color="accent" (click)="openAssignProductsDialog(supplier)">
-            <mat-icon>add_link</mat-icon>
-        </button>
-    
-        <button mat-icon-button color="warn" (click)="openViewProductsDialog(supplier)">
-            <mat-icon>visibility</mat-icon>
-        </button>
-        </td>
-    </ng-container>
-  
-  
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  
-      </table>
-  
-    </mat-card-content>
-  </mat-card>
-  
+</div>

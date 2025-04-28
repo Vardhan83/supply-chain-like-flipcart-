@@ -1,14 +1,9 @@
+import { Product } from '../models/product';
+
 export interface Supplier {
     supplierId: number;
     name: string;
     contactInfo: string;
-    products: { name: string; price: number }[];
+    // products: { name: string; price: number }[];
+    products: Product[];
   }
-//   export interface Product {
-//     productId: number;
-//     name: string;
-//     category: string;
-//     price: number;
-//     quantityInStock: number;
-//     reorderThreshold: number;
-//   }

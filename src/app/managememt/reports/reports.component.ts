@@ -1,32 +1,21 @@
-// import { Component } from '@angular/core';
 
-// @Component({
-//   selector: 'app-reports',
-//   standalone: true,
-//   imports: [],
-//   templateUrl: './reports.component.html',
-//   styleUrl: './reports.component.scss'
-// })
-// export class ReportsComponent {
-
-// }
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { OrderService } from '../../core/services/order.service';
 import { ProductService } from '../../core/services/product.service';
-import { InventorySummary } from '../../models/inventorysummary';
 import { Order } from '../../models/order';
 import { signal } from '@angular/core';
 import { Product,InventoryStats } from '../../models/product';
+import { MatTooltipModule } from '@angular/material/tooltip';
 @Component({
   selector: 'app-reports',
   standalone: true,
   imports: [
     CommonModule,
     MatCardModule,
-    MatButtonModule,MatCardModule
+    MatButtonModule,MatCardModule,MatTooltipModule
   ],
   templateUrl: './reports.component.html',
   styleUrls: ['./reports.component.scss']
@@ -36,13 +25,6 @@ export class ReportsComponent implements OnInit {
   private productService = inject(ProductService);
   stats = signal<InventoryStats | null>(null);
   totalSales = 0;
-  // inventorySummary: InventorySummary = {
-  //   totalProducts: 0,
-  //   lowStockProducts: 0,
-  //   outOfStockProducts: 0,
-  //   totalProductValue:0
-  // };
- 
   totalProducts = 0;
   lowStockProducts = 0;
   outOfStockProducts = 0;

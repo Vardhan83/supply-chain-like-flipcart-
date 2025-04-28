@@ -1,21 +1,41 @@
 .search-filters {
     display: flex;
-    gap: 1rem;
-    margin-bottom: 1rem;
+    gap: 1.5rem;
+    margin: 1rem;
+  }
+  .searchbox{
+    width:40%;
   }
   
   .product-grid {
     display: flex;
     flex-wrap: wrap;
-    gap: 1rem;
+    gap: 1.3rem;
+    padding: 15px;
   }
   
   .product-card {
-    width: 280px;
+    padding: 20px;
+    align-items: start;
+    width: 330px;
+    
   }
   
   .low-stock {
     color: red;
     font-weight: bold;
   }
-  
+  mat-card-title{
+    display: flex;
+    justify-content: space-around !important;
+    gap:120Px;
+  }
+  .highlight{
+    font-weight: bold;
+    color:black;
+  }
+  .mat-mdc-card-content {
+    display: block;
+    gap:1rem;
+    padding: 0 !important; 
+}

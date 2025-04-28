@@ -1,15 +1,4 @@
-// import { Component } from '@angular/core';
 
-// @Component({
-//   selector: 'app-shipment-tracking',
-//   standalone: true,
-//   imports: [],
-//   templateUrl: './shipment-tracking.component.html',
-//   styleUrl: './shipment-tracking.component.scss'
-// })
-// export class ShipmentTrackingComponent {
-
-// }
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
@@ -20,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { ShipmentService } from '../../../core/services/shipment.service';
 import { Shipment } from '../../../models/shipment';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-shipment-tracker',
@@ -31,7 +21,8 @@ import { Shipment } from '../../../models/shipment';
     MatSelectModule,
     MatButtonModule,
     FormsModule,
-    MatIconModule
+    MatIconModule,
+    MatTooltipModule
   ],
   templateUrl: '././shipment-tracking.component.html',
   styleUrls: ['./shipment-tracking.component.scss']
@@ -40,7 +31,7 @@ export class ShipmentTrackerComponent implements OnInit {
   private shipmentService = inject(ShipmentService);
 
   shipments: Shipment[] = [];
-  statuses: string[] = ['Pending', 'Shipped', 'Delivered'];
+  statuses: string[] = ['Pending', 'Shipped', 'Delivered',"Processing"];
 
   ngOnInit(): void {
     this.loadShipments();

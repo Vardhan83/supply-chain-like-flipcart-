@@ -1,138 +1,4 @@
-// // import { Component, inject, OnInit } from '@angular/core';
-// // import { CommonModule } from '@angular/common';
-// // import { MatCardModule } from '@angular/material/card';
-// // import { SupplierService } from '../../core/services/supplier.service';
-// // import { Supplier } from '../../models/supplier';
 
-// // @Component({
-// //   selector: 'app-supplier-performance',
-// //   standalone: true,
-// //   imports: [
-// //     CommonModule,
-// //     MatCardModule
-// //   ],
-// //   templateUrl: './supplier-performance.component.html',
-// //   styleUrls: ['./supplier-performance.component.scss']
-// // })
-// // export class SupplierPerformanceComponent implements OnInit {
-// //   private supplierService = inject(SupplierService);
-
-// //   suppliers: Supplier[] = [];
-
-// //   ngOnInit(): void {
-// //     this.loadSuppliers();
-// //   }
-
-// //   loadSuppliers() {
-// //     this.supplierService.getAllSuppliers().subscribe(data => {
-// //       this.suppliers = data;
-// //     });
-// //   }
-// // }
-// import { Component, inject, OnInit, signal } from '@angular/core';
-// import { CommonModule } from '@angular/common';
-// import { FormsModule } from '@angular/forms';
-// import { MatTableModule } from '@angular/material/table';
-// import { MatButtonModule } from '@angular/material/button';
-// import { MatIconModule } from '@angular/material/icon';
-// import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-// import { SupplierService } from '../../core/services/supplier.service';
-// import { ProductService } from '../../core/services/product.service';
-// import { Supplier } from '../../models/supplier';
-// import { Product } from '../../models/product';
-// import { SupplierFormDialogComponent } from '../addoreditsuppliersdialog';
-// import { AssignProductsDialogComponent } from '../assingnewsupplierdialog';
-// import { MatCardModule } from '@angular/material/card';
-
-// @Component({
-//   selector: 'app-supplier-performance',
-//   standalone: true,
-//   imports: [
-//     CommonModule,
-//     FormsModule,
-//     MatTableModule,
-//     MatButtonModule,
-//     MatIconModule,
-//     MatDialogModule,
-//     MatCardModule
-//   ],
-//   templateUrl: './supplier-performance.component.html',
-//   styleUrls: ['./supplier-performance.component.scss']
-// })
-// export class SupplierPerformanceComponent implements OnInit {
-//   private supplierService = inject(SupplierService);
-//   private productService = inject(ProductService);
-//   private dialog = inject(MatDialog);
-
-//   suppliers = signal<Supplier[]>([]);
-//   products = signal<Product[]>([]);
-//   displayedColumns = ['supplierId', 'name', 'products', 'actions'];
-
-//   ngOnInit(): void {
-//     this.loadSuppliers();
-//     this.loadProducts();
-//   }
-
-//   loadSuppliers() {
-//     this.supplierService.getAllSuppliers().subscribe(data => {
-//       this.suppliers.set(data);
-//     });
-//   }
-
-//   loadProducts() {
-//     this.productService.getAllProducts().subscribe(data => {
-//       this.products.set(data);
-//     });
-//   }
-
-//   openAddSupplierDialog() {
-//     const dialogRef = this.dialog.open(SupplierFormDialogComponent, {
-//       width: '400px',
-//       data: { mode: 'add', supplier: {} }
-//     });
-
-//     dialogRef.afterClosed().subscribe(result => {
-//       if (result) {
-//         this.supplierService.addSupplier(result).subscribe(() => {
-//           this.loadSuppliers();
-//         });
-//       }
-//     });
-//   }
-
-//   openEditSupplierDialog(supplier: Supplier) {
-//     const dialogRef = this.dialog.open(SupplierFormDialogComponent, {
-//       width: '400px',
-//       data: { mode: 'edit', supplier }
-//     });
-
-//     dialogRef.afterClosed().subscribe(result => {
-//       if (result) {
-//         this.supplierService.editSupplier(supplier.supplierId, result).subscribe(() => {
-//           this.loadSuppliers();
-//         });
-//       }
-//     });
-//   }
-
-//   openAssignProductsDialog(supplier: Supplier) {
-//     const dialogRef = this.dialog.open(AssignProductsDialogComponent, {
-//       width: '500px',
-//       data: { supplier, products: this.products() }
-//     });
-  
-//     dialogRef.afterClosed().subscribe(selectedProductIds => {
-//       if (selectedProductIds && selectedProductIds.length > 0) {
-//         this.supplierService.assignProductsToSupplier(supplier.supplierId, selectedProductIds).subscribe(() => {
-//           this.loadSuppliers(); // ✅ Load updated supplier list
-//           alert('Products assigned successfully!'); // Optional: small alert for success
-//         });
-//       }
-//     });
-//   }
-  
-  
-// }
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -141,13 +7,16 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatChipsModule } from '@angular/material/chips';
 import { SupplierService } from '../../core/services/supplier.service';
 import { ProductService } from '../../core/services/product.service';
 import { Supplier } from '../../models/supplier';
 import { Product } from '../../models/product';
 import { SupplierFormDialogComponent } from '../addoreditsuppliersdialog';
 import { AssignProductsDialogComponent } from '../assingnewsupplierdialog';
-import { ViewProductsDialogComponent } from '../viewsupplierassign'; 
+import { ViewProductsDialogComponent } from '../viewsupplierassign';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-supplier-performance',
@@ -159,7 +28,11 @@ import { ViewProductsDialogComponent } from '../viewsupplierassign';
     MatButtonModule,
     MatIconModule,
     MatDialogModule,
-    MatCardModule
+    MatCardModule,
+    MatTooltipModule,
+    MatChipsModule,
+    MatProgressSpinnerModule,
+
   ],
   templateUrl: './supplier-performance.component.html',
   styleUrls: ['./supplier-performance.component.scss']
@@ -168,11 +41,13 @@ export class SupplierPerformanceComponent implements OnInit {
   private supplierService = inject(SupplierService);
   private productService = inject(ProductService);
   private dialog = inject(MatDialog);
+  productCount:number=0;
 
   suppliers = signal<Supplier[]>([]);
-  products = signal<Product[]>([]); // Initialize as empty array
+  products = signal<Product[]>([]);
+  isLoading = signal(true);
 
-  displayedColumns = ['supplierId', 'name', 'products', 'actions'];
+  displayedColumns = ['supplierId', 'name', 'contactInfo', 'products', 'actions'];
 
   ngOnInit(): void {
     this.loadSuppliers();
@@ -180,8 +55,16 @@ export class SupplierPerformanceComponent implements OnInit {
   }
 
   loadSuppliers() {
-    this.supplierService.getAllSuppliers().subscribe(data => {
-      this.suppliers.set(data);
+    this.isLoading.set(true);
+    this.supplierService.getAllSuppliers().subscribe({
+      next: (data) => {
+        this.suppliers.set(data);
+        this.isLoading.set(false);
+      },
+      error: (err) => {
+        console.error('Error loading suppliers:', err);
+        this.isLoading.set(false);
+      }
     });
   }
 
@@ -223,34 +106,78 @@ export class SupplierPerformanceComponent implements OnInit {
 
   openAssignProductsDialog(supplier: Supplier) {
     const dialogRef = this.dialog.open(AssignProductsDialogComponent, {
-      width: '500px',
-      data: { supplier, products: this.products() }
+      width: '600px',
+      data: { 
+        supplier, 
+        products: this.products(),
+        currentlyAssigned: supplier.products?.map(p => p.productId) || []
+      }
     });
   
     dialogRef.afterClosed().subscribe(selectedProductIds => {
-      if (selectedProductIds && selectedProductIds.length > 0) {
-        this.supplierService.assignProductsToSupplier(supplier.supplierId, selectedProductIds).subscribe(() => {
-          this.loadSuppliers(); // ✅ Reload supplier list with updated products
-          alert('Products assigned successfully!'); // ✅ Optional notification
+      if (selectedProductIds) {
+        this.isLoading.set(true);
+        this.supplierService.assignProductsToSupplier(supplier.supplierId, selectedProductIds)
+          .subscribe({
+            next: (updatedSupplier) => {
+              // Update the products list in the supplier
+              updatedSupplier.productCount = selectedProductIds.length; // Add the count
+              this.suppliers.update(suppliers => 
+                suppliers.map(s => 
+                  s.supplierId === supplier.supplierId ? updatedSupplier : s
+                )
+              );
+              this.isLoading.set(false);
+              alert('Successfully to assign products. Please add any product if required again.');
+            },
+            error: (err) => {
+              console.error('Error assigning products:', err);
+              this.isLoading.set(false);
+              alert('Failed to assign products. Please try again.');
+            }
+          });
+      }
+    });
+  }
+  
+
+  openViewProductsDialog(supplier: Supplier) {
+    // Get fresh data to ensure we have latest product details
+    this.supplierService.getSupplierById(supplier.supplierId).subscribe({
+      next: (freshSupplier) => {
+        this.dialog.open(ViewProductsDialogComponent, {
+          width: '600px',
+          data: { 
+            supplierName: freshSupplier.name,
+            products: freshSupplier.products || [],
+            contactInfo: freshSupplier.contactInfo
+          }
+        });
+      },
+      error: () => {
+        // Fallback to local data if fresh fetch fails
+        this.dialog.open(ViewProductsDialogComponent, {
+          width: '600px',
+          data: { 
+            supplierName: supplier.name,
+            products: supplier.products || [],
+            contactInfo: supplier.contactInfo
+          }
         });
       }
     });
   }
 
-  getProductNames(productList: Product[] | undefined): string {
-    if (!productList || productList.length === 0) {
-      return 'No Products';
+ 
+  deleteSupplier(supplier: Supplier) {
+    if (confirm(`Are you sure you want to delete ${supplier.name}?`)) {
+      this.supplierService.deleteSupplier(supplier.supplierId).subscribe(() => {
+        this.loadSuppliers();
+      });
     }
-    return productList.map(p => p.name).join(', ');
   }
-  
 
-  openViewProductsDialog(supplier: Supplier) {
-    this.dialog.open(ViewProductsDialogComponent, {
-      width: '500px',
-      data: { supplier }
-    });
+  getProductCount(products: Product[] | undefined): number {
+    return products?.length || 0;
   }
-  
-
 }

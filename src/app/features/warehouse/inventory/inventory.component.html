@@ -1,6 +1,6 @@
 
    <mat-card>
-    <mat-card-title>Inventory Management</mat-card-title>
+    <mat-card-title >Inventory Management</mat-card-title>
     <mat-card-content>
   
       <!-- Search and Add Product Button -->
@@ -10,11 +10,11 @@
           <input matInput [(ngModel)]="searchTerm" placeholder="Enter name or category">
         </mat-form-field>
   
-        <button mat-raised-button color="primary" (click)="addNewProduct()">
+        <button mat-raised-button color="primary" (click)="addNewProduct()" matTooltip="addNewProduct">
           <mat-icon>add</mat-icon> Add New Product
         </button>
 
-        <button mat-button color="warn" (click)="toggleLowStock()">
+        <button mat-button color="warn" (click)="toggleLowStock()" matTooltip="showLowStockOnly">
             <mat-icon>{{ showLowStockOnly() ? 'visibility_off' : 'visibility' }}</mat-icon>
             {{ showLowStockOnly() ? 'Show All' : 'Low Stock Only' }}
           </button>
@@ -24,29 +24,32 @@
       
       <!-- Product Grid -->
       <div class="product-grid">
-        <mat-card *ngFor="let product of filteredProducts" class="product-card">
-          <mat-card-title>{{ product.name }}</mat-card-title>
-          <mat-card-subtitle>Category: {{ product.category }}</mat-card-subtitle>
+        <mat-card *ngFor="let product of filteredProducts" class="product-card" >
+          <mat-card-title matTooltip="{{product.name}}">{{ product.name }}</mat-card-title>
+          <mat-card-subtitle matTooltip="{{ product.category }}">Category: {{ product.category }}</mat-card-subtitle>
   
           <mat-card-content>
-            <p>Price: ₹{{ product.price }}</p>
-            <p [ngClass]="{ 'low-stock': product.quantityInStock <= product.reorderThreshold }">
+            <p matTooltip="Price: ₹{{ product.price }}">Price: ₹{{ product.price }}</p>
+            <p *ngIf="product.quantityInStock!==0" [ngClass]="{ 'low-stock': product.quantityInStock <= product.reorderThreshold }" matTooltip="Stock: {{ product.quantityInStock }}">
               Stock: {{ product.quantityInStock }}
+            </p>
+            <p *ngIf="product.quantityInStock===0" [ngClass]="{ 'low-stock': product.quantityInStock <= product.reorderThreshold }" matTooltip="Stock: {{ product.quantityInStock }}">
+              Stock: Out Of Stock
             </p>
   
     
           </mat-card-content>
   
           <mat-card-actions class="card-buttons">
-            <button mat-raised-button color="accent" (click)="updateStock(product)">
+            <button mat-raised-button color="accent" (click)="updateStock(product)" matTooltip="updateStock">
                 <mat-icon>upload</mat-icon> Update Stock
               </button>
             
-            <button mat-raised-button color="primary" (click)="editProduct(product)">
+            <button mat-raised-button color="primary" (click)="editProduct(product)" matTooltip="Edit Product">
               <mat-icon>edit</mat-icon> Edit
             </button>
   
-            <button mat-raised-button color="warn" (click)="deleteProduct(product.productId)">
+            <button mat-raised-button color="warn" (click)="deleteProduct(product.productId)" matTooltip="deleteProduct">
               <mat-icon>delete</mat-icon> Delete
             </button>
           </mat-card-actions>
