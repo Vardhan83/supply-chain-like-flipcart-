@@ -1,1 +1,77 @@
 
+<!-- components/login/login.component.html -->
+<div class="login-container">
+    <mat-card matTooltip="login card">
+      <mat-card-header>
+        <mat-card-title>
+            <mat-icon aria-hidden="false" aria-label="Login icon">login</mat-icon> Login
+        </mat-card-title>
+      </mat-card-header>
+      
+      <mat-card-content>
+        <form (ngSubmit)="onSubmit()">
+          <mat-form-field appearance="outline">
+            <mat-label> <mat-icon>person</mat-icon>Username</mat-label>
+            <input 
+              matInput 
+              type="text" 
+              [(ngModel)]="credentials().username" 
+              name="username" 
+              required
+              matTooltip="username"
+            >
+          </mat-form-field>
+  
+          <mat-form-field appearance="outline">
+            <mat-label> 
+              <mat-icon>lock</mat-icon> Password
+            </mat-label>
+            <input 
+              matInput 
+              [type]="showPassword() ? 'text' : 'password'"
+              autocomplete="current-password"
+              [(ngModel)]="credentials().password" 
+              name="password" 
+              required 
+              matTooltip="Password"
+            >
+          
+            <button 
+              mat-icon-button 
+              matSuffix
+              (click)="togglePasswordVisibility()" 
+              type="button" 
+              [attr.aria-label]="'Toggle password visibility'"
+              [matTooltip]="showPassword() ? 'Hide Password' : 'Show Password'"
+            >
+              <mat-icon>{{ showPassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+          </mat-form-field>
+          
+  
+          @if (errorMessage()) {
+            <div class="error-message" matTooltip="error-message">
+              {{ errorMessage() }}
+            </div>
+          }
+  
+          <button 
+            mat-raised-button 
+            color="primary" 
+            type="submit" 
+            [disabled]="isLoading()"
+          >
+            @if (isLoading()) {
+              <span matTooltip="Loading">Logging in...</span>
+            } @else {
+              <span matTooltip="Login">Login</span>
+            }
+          </button>
+        </form>
+      </mat-card-content>
+  
+      <mat-card-actions>
+        <p>Don't have an account? <a routerLink="/signup" matTooltip="Redirect to register page">Register</a></p>
+      </mat-card-actions>
+    </mat-card>
+  </div>

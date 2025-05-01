@@ -1,13 +1,36 @@
 <mat-toolbar color="primary">
     <span>Supply Chain System</span>
     <span class="spacer"></span>
+  <div *ngIf="hasRole('MANAGER')">
+    <a mat-button routerLink="/admin-panel">Role Update</a>
     <a mat-button routerLink="/warehouse" matTooltip="Inventory">Inventory</a>
     <a mat-button routerLink="/shipments" matTooltip="Shipments">Shipments</a>
     <a mat-button routerLink="/sales/products" matTooltip="Sales">Sales</a>
-    <!-- <a mat-button routerLink="/sales/order">Order</a> -->
+    <a mat-button routerLink="/sales/order">Order</a>
     <a mat-button routerLink="/sales/track" matTooltip="Track">Track</a>
     <a mat-button routerLink="/management/reports" matTooltip="Reports">Reports</a>
     <a mat-button routerLink="/management/suppliers" matTooltip="Suppliers">Suppliers</a>
+  </div>
+    <a mat-button  *ngIf="hasRole('ADMIN')" routerLink="/admin-panel">Role Update</a>
+    <a mat-button *ngIf="hasRole('WAREHOUSE')" routerLink="/warehouse">Inventory</a>
+    <a mat-button *ngIf="hasRole('WAREHOUSE')" routerLink="/shipments">Shipments</a>
+    <a mat-button *ngIf="hasRole('USER')" routerLink="/sales/products">Sales</a>
+    <a mat-button *ngIf="hasRole('USER')" routerLink="/sales/track">Track</a>
+    <a mat-button *ngIf="hasRole('ADMIN')" routerLink="/management/reports">Reports</a>
+    <a mat-button *ngIf="hasRole('ADMIN')" routerLink="/management/suppliers">Suppliers</a>
+
+
+
+    <button mat-icon-button (click)="openUserDialog()" [disabled]="!username" matTooltip="User Info">
+        <mat-icon>person</mat-icon>
+      </button>
+      <span style="margin-left: 8px;">{{ username }}</span>
+      <button mat-button color="warn" *ngIf="username" (click)="logout()" matTooltip="Logout" 
+      style="margin-left:15px;  background-color: white;
+      "
+      >
+        <mat-icon style="color:black;">logout</mat-icon> Logout
+      </button>
 </mat-toolbar>
 
 <router-outlet></router-outlet>

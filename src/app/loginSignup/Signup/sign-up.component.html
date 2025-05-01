@@ -1,0 +1,108 @@
+
+<div class="signup-container">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Register</mat-card-title>
+      </mat-card-header>
+      
+      <mat-card-content>
+        <form (ngSubmit)="onSubmit()">
+          <mat-form-field appearance="outline">
+            
+            <mat-label>
+                <mat-icon>person</mat-icon>
+                Username
+            </mat-label>
+            <input 
+              matInput 
+              type="text" 
+              [(ngModel)]="userData().username" 
+              name="username" 
+              required
+              matTooltip="username"
+            >
+          </mat-form-field>
+  
+          <mat-form-field appearance="outline">
+            <mat-label>
+                <mat-icon>lock</mat-icon>
+                Password
+            </mat-label>
+            <input 
+              matInput 
+              [type]="showpassword() ? 'text' :'password'" 
+              [(ngModel)]="userData().password" 
+              name="password" 
+              required
+              matTooltip="password"
+            >
+            <button
+            mat-icon-button
+            matSuffix
+            (click)="toggle()"
+            type="button"
+            [attr.aria-label]="'toggle to showpassword'"
+            [matTooltip]="showpassword() ? 'Hide Password' : 'Show Password'"
+            >
+            <mat-icon>{{ showpassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+          </mat-form-field>
+  
+          <mat-form-field appearance="outline">
+            <mat-label>
+              <mat-icon>check_circle</mat-icon>
+              Confirm Password
+            </mat-label>
+            <input 
+              matInput 
+              [type]=" showConfirmpassword() ? 'text' : 'password'"
+              [(ngModel)]="userData().confirmPassword" 
+              name="confirmPassword" 
+              required
+              matTooltip="Retype password"
+            >
+            <button
+            mat-icon-button
+            matSuffix
+            (click)="toggleConfirmPassword()"
+            type="button"
+            [attr.aria-label]=" 'toggle to show password'"
+            [matTooltip]="showConfirmpassword()?'Hide Password': 'show Password'"
+            >
+            <mat-icon>{{showConfirmpassword()?'visibility_off':'visibility'}}</mat-icon>
+            </button>
+            <div class="comparison-row">
+                <ng-container *ngFor="let item of getPasswordComparison()">
+                  <span [style.color]="item.match ? 'green' : 'red'">
+                    {{ item.char || '*' }}
+                  </span>
+                </ng-container>
+              </div>
+          </mat-form-field>
+  
+          @if (errorMessage()) {
+            <div class="error-message">
+              {{ errorMessage() }}
+            </div>
+          }
+  
+          <button 
+            mat-raised-button 
+            color="primary" 
+            type="submit" 
+            [disabled]="isLoading()"
+          >
+            @if (isLoading()) {
+              <span>Registering...</span>
+            } @else {
+              <span matTooltip="Register">Register</span>
+            }
+          </button>
+        </form>
+      </mat-card-content>
+  
+      <mat-card-actions>
+        <p>Already have an account? <a routerLink="/login" matTooltip="Redirect to login page">Login</a></p>
+      </mat-card-actions>
+    </mat-card>
+  </div>

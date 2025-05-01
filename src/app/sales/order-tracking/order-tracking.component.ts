@@ -12,6 +12,7 @@ import { OrderDetailDialogComponent } from '../orderdialogcomponent';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ShipmentService } from '../../core/services/shipment.service';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-order-tracking',
@@ -23,7 +24,8 @@ import { ShipmentService } from '../../core/services/shipment.service';
     MatButtonModule,
     MatDialogModule,
     ReactiveFormsModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatIconModule
   ],
   templateUrl: './order-tracking.component.html',
   styleUrls: ['./order-tracking.component.scss']

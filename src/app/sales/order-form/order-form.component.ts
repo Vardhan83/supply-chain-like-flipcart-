@@ -236,4 +236,7 @@ export class OrderFormComponent implements OnInit {
     this.shippingAddress = '';
     this.orderItems.set([]);
   }
+  close(){
+    this.router.navigate(['sales/products']);
+  }
 }

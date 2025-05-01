@@ -34,15 +34,16 @@ export class SupplierService {
   }
 
   // Assign products to a supplier
-  // assignProductsToSupplier(supplierId: number, productIds: number[]): Observable<Supplier> {
-  //   return this.http.put<Supplier>(`${this.apiUrl}/${supplierId}/products`, productIds);
-  // }
   assignProductsToSupplier(supplierId: number, productIds: number[]): Observable<any> {
     return this.http.put(`${this.apiUrl}/${supplierId}/products`, productIds);
   }
   // Remove a product from a supplier
   removeProductFromSupplier(supplierId: number, productId: number): Observable<Supplier> {
     return this.http.delete<Supplier>(`${this.apiUrl}/${supplierId}/products/${productId}`);
+  }
+  //count of product that supplier providing
+  getProductCountForSupplier(supplierId: number): Observable<number> {
+    return this.http.get<number>(`${this.apiUrl}/${supplierId}/product-count`);
   }
   
 }

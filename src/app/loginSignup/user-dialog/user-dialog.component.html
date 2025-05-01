@@ -1,0 +1,53 @@
+<!-- 
+<div class="dialog-header">
+    <h2 mat-dialog-title>User Info</h2>
+    <button mat-icon-button mat-dialog-close matTooltip="Close" class="close-button">
+      <mat-icon>close</mat-icon>
+    </button>
+</div>
+  
+<mat-dialog-content>
+    <p><strong>Username:</strong> {{ data.username }}</p>
+</mat-dialog-content>
+  
+<mat-dialog-actions  >
+    <button mat-button (click)="openChangePassword()">Change Password</button>
+    <button mat-button color="danger" (click)="logout()">Logout</button>
+</mat-dialog-actions>
+  
+   -->
+   <div class="user-info-dialog">
+    <div class="dialog-header">
+      <h2 mat-dialog-title>
+        <mat-icon class="header-icon">account_circle</mat-icon>
+        User Profile
+      </h2>
+      <button mat-icon-button mat-dialog-close matTooltip="Close" class="close-button">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    
+    <mat-dialog-content class="dialog-content">
+      <div class="user-details">
+        <div class="detail-row">
+          <mat-icon class="detail-icon">person</mat-icon>
+          <div class="detail-text">
+            <span class="detail-label">Username:</span>
+            <span class="detail-value">{{ data.username }}</span>
+          </div>
+        </div>
+        
+      </div>
+    </mat-dialog-content>
+    
+    <mat-dialog-actions class="dialog-actions">
+      <button mat-raised-button color="primary" (click)="openChangePassword()" class="action-button">
+        <mat-icon>lock_reset</mat-icon>
+        Change Password
+      </button>
+      <button mat-raised-button color="warn" (click)="logout()" class="action-button">
+        <mat-icon>logout</mat-icon>
+        Logout
+      </button>
+    </mat-dialog-actions>
+  </div>

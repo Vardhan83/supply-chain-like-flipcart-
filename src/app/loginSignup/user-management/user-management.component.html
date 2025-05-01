@@ -1,0 +1,57 @@
+
+<h1 style="display: flex;
+    justify-content: center; margin-top: 10%;"><strong>Update The Role</strong></h1>
+<div class="row" style="display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0%;">
+   
+    <div class="col"style="
+    width:100%;
+    max-width: 400px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;"
+    >
+      <div *ngIf="authService.getCurrentUser()?.role === 'ADMIN'||'MANAGER'">
+        <form (ngSubmit)="updateUserRole()"
+        style="display: flex; flex-direction: column;"
+        >
+          
+          <!-- Select User -->
+          <label for="username" style="display: block;
+          margin-bottom: 3px;
+          font-weight: bold;">Select User:</label>
+          <select [(ngModel)]="selectedUsername" name="username" id="username" required style="height: 35px;">
+            <option *ngFor="let user of users" [value]="user.username">
+              {{ user.username }}
+            </option>
+          </select>
+          <br><br>
+  
+          <!-- Select Role -->
+          <label for="role" style="display: block;
+          margin-bottom: 6px;
+          font-weight: bold;">Select Role:</label>
+          <select [(ngModel)]="selectedRole" name="role" id="role" required style="height: 35px;">
+            <option value="ADMIN">Admin</option>
+            <option value="SALES">Sales</option>
+            <option value="WAREHOUSE">Warehouse</option>
+            <option value="USER">User</option>
+          </select>
+          <br><br>
+  
+          <button type="submit" style="padding: 10px 15px;
+          background-color: #1976d2;
+          color: white;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+         
+          ">Update Role</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  

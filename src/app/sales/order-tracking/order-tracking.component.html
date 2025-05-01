@@ -1,7 +1,10 @@
  <mat-card>
-    <mat-card-title>Order Tracking</mat-card-title>
-
+    <!-- <mat-card-title>Order Tracking</mat-card-title> -->
     
+    <h1>
+      <mat-icon>track_changes</mat-icon>
+      Order Tracking
+    </h1>
     <mat-card-content>
   
       <table mat-table [dataSource]="orders" class="mat-elevation-z8">
@@ -37,7 +40,7 @@
             <button mat-raised-button color="primary" (click)="openOrderDetails(order)">View</button>
             <button mat-raised-button color="accent"
             [disabled]="order.status !== 'PLACED'"
-            (click)="createShipment(order)">
+            (click)="createShipment(order)" style="width:30%; overflow: hidden;">
             Create Shipment
           </button>
           </td>
@@ -53,49 +56,4 @@
 
  
 
-  <!-- <mat-card>
-    <mat-card-title>Order Tracking</mat-card-title>
-    <mat-table [dataSource]="orders">
-      
-    
-      <ng-container matColumnDef="orderId">
-        <mat-header-cell *matHeaderCellDef>Order ID</mat-header-cell>
-        <mat-cell *matCellDef="let order">{{ order.orderId }}</mat-cell>
-      </ng-container>
-  
-      
-      <ng-container matColumnDef="status">
-        <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
-        <mat-cell *matCellDef="let order">{{ order.status }}</mat-cell>
-      </ng-container>
-  
-      
-      <ng-container matColumnDef="orderDate">
-        <mat-header-cell *matHeaderCellDef>Order Date</mat-header-cell>
-        <mat-cell *matCellDef="let order">{{ order.orderDate | date }}</mat-cell>
-      </ng-container>
-  
-
-      <ng-container matColumnDef="actions">
-        <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
-        <mat-cell *matCellDef="let order">
-          
-        
-          <button mat-raised-button color="primary" (click)="openOrderDetails(order)">View</button>
-  
-         
-          <button mat-raised-button color="accent"
-            [disabled]="order.status !== 'PLACED'"
-            (click)="createShipment(order)">
-            Create Shipment
-          </button>
-  
-        </mat-cell>
-      </ng-container>
-  
-      <mat-header-row *matHeaderRowDef="['orderId', 'status', 'orderDate', 'actions']"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: ['orderId', 'status', 'orderDate', 'actions'];"></mat-row>
-  
-    </mat-table>
-  </mat-card>
-   -->
+ 

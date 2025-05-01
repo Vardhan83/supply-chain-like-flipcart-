@@ -1,13 +1,19 @@
 
    <mat-card>
-    <mat-card-title >Inventory Management</mat-card-title>
+    <h1><mat-icon>inventory</mat-icon> Inventory Management</h1>
     <mat-card-content>
   
       <!-- Search and Add Product Button -->
       <div class="inventory-actions">
         <mat-form-field appearance="outline" class="search-field">
           <mat-label>Search Products</mat-label>
-          <input matInput [(ngModel)]="searchTerm" placeholder="Enter name or category">
+          <input matInput [(ngModel)]="searchTerm" placeholder="Enter name or category" >
+          <button
+          mat-icon-button
+          matSuffix
+          >
+          <mat-icon>search</mat-icon>    </button>
+
         </mat-form-field>
   
         <button mat-raised-button color="primary" (click)="addNewProduct()" matTooltip="addNewProduct">
@@ -25,20 +31,20 @@
       <!-- Product Grid -->
       <div class="product-grid">
         <mat-card *ngFor="let product of filteredProducts" class="product-card" >
-          <mat-card-title matTooltip="{{product.name}}">{{ product.name }}</mat-card-title>
+          <div class="row">
+            <mat-card-title matTooltip="{{product.name}}">{{ product.name }}</mat-card-title>
           <mat-card-subtitle matTooltip="{{ product.category }}">Category: {{ product.category }}</mat-card-subtitle>
   
-          <mat-card-content>
+          <!-- <mat-card-content> -->
             <p matTooltip="Price: ₹{{ product.price }}">Price: ₹{{ product.price }}</p>
             <p *ngIf="product.quantityInStock!==0" [ngClass]="{ 'low-stock': product.quantityInStock <= product.reorderThreshold }" matTooltip="Stock: {{ product.quantityInStock }}">
               Stock: {{ product.quantityInStock }}
             </p>
             <p *ngIf="product.quantityInStock===0" [ngClass]="{ 'low-stock': product.quantityInStock <= product.reorderThreshold }" matTooltip="Stock: {{ product.quantityInStock }}">
-              Stock: Out Of Stock
+              <span style="color:black;">Stock:</span> Out Of Stock
             </p>
-  
-    
-          </mat-card-content>
+          </div>
+          <!-- </mat-card-content> -->
   
           <mat-card-actions class="card-buttons">
             <button mat-raised-button color="accent" (click)="updateStock(product)" matTooltip="updateStock">
