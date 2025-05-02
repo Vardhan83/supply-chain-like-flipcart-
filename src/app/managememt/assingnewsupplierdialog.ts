@@ -104,7 +104,10 @@ import { Component,Inject } from '@angular/core';
 
     <mat-dialog-actions align="end">
       <button mat-button (click)="cancel()">Cancel</button>
-      <button mat-raised-button color="primary" (click)="assign()">Assign Selected</button>
+      <button mat-raised-button color="primary" (click)="assign()" [disabled]="!hasSelectedProducts()">
+  Assign Selected
+</button>
+
     </mat-dialog-actions>
   `,
   styles: [`
@@ -155,5 +158,9 @@ export class AssignProductsDialogComponent {
   trackByProductId(index: number, product: Product): number {
     return product.productId;
   }
+  hasSelectedProducts(): boolean {
+    return Object.values(this.selectedProducts).some(val => val === true);
+  }
+
 }
 

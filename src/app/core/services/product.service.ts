@@ -88,6 +88,9 @@ export class ProductService {
   assignSupplierToProduct(productId: number, supplierId: number) {
     return this.http.put(`${this.apiUrl}/${productId}/supplier/${supplierId}`, {});
   }
+  removeSupplierToProduct(productId: number, supplierId: number): Observable<Product> {
+      return this.http.delete<Product>(`${this.apiUrl}/${productId}/supplier/${supplierId}`);
+    }
   
 
 }

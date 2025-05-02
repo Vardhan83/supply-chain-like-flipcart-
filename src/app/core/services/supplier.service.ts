@@ -45,5 +45,8 @@ export class SupplierService {
   getProductCountForSupplier(supplierId: number): Observable<number> {
     return this.http.get<number>(`${this.apiUrl}/${supplierId}/product-count`);
   }
+  getSupplierProducts(supplierId: number) {
+    return this.http.get(`http://localhost:5050/api/suppliers/${supplierId}/products`);
+  }
   
 }

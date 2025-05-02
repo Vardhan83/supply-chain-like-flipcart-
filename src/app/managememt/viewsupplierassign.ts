@@ -32,7 +32,7 @@
 //   `,
 //   styles: [`
 //     mat-list-item {
-//       height: 72px;
+//       height: 100px;
 //     }
 //   `]
 // })
@@ -52,6 +52,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { Product } from '../models/product';
+import { ProductService } from '../core/services/product.service';
 
 @Component({
   selector: 'app-view-products-dialog',
@@ -87,8 +88,31 @@ import { Product } from '../models/product';
         </div>
       } @else {
         <mat-list class="product-list">
-          @for (product of data.products; track product.productId) {
+          <ng-container *ngFor="let product of data.products; trackBy: trackByProductId">
             <mat-list-item class="product-item">
+                <div matListItemIcon>
+                  <mat-icon>shopping_basket</mat-icon>
+                </div>
+                
+                <div matListItemTitle>{{ product.name }}</div>
+                <div matListItemLine>
+                  <span class="product-category">{{ product.category }}</span>
+                  <span class="product-price">{{ product.price | currency }}</span>
+                </div>
+                <!-- <div matListItemLine>
+                  Stock: {{ product.quantityInStock }} 
+                  @if (product.reorderThreshold && product.quantityInStock <= product.reorderThreshold) {
+                    <span class="low-stock">(Low stock!)</span>
+                  }
+                </div> -->
+              <button mat-icon-button color="warn" (click)="removeProductFromSupplier(product.productId)">
+                <mat-icon>delete</mat-icon>
+              </button>
+                </mat-list-item>
+          </ng-container>
+
+          <!-- @for (product of data.products; track product.productId) { -->
+            <!-- <mat-list-item class="product-item">
               <div matListItemIcon>
                 <mat-icon>shopping_basket</mat-icon>
               </div>
@@ -103,10 +127,10 @@ import { Product } from '../models/product';
                 @if (product.reorderThreshold && product.quantityInStock <= product.reorderThreshold) {
                   <span class="low-stock">(Low stock!)</span>
                 }
-              </div>
-            </mat-list-item>
+              </div> -->
+            <!-- </mat-list-item> -->
             <mat-divider></mat-divider>
-          }
+          <!-- } -->
         </mat-list>
       }
     </mat-dialog-content>
@@ -138,11 +162,17 @@ import { Product } from '../models/product';
       color: #666;
     }
     .product-list {
-      padding: 0;
+      padding: 2px;
+      display:flex;
+      flex-direction:column;
+      height:100%;
     }
     .product-item {
+      flex-grow:1;
+      max-width:200px;
       height: auto;
-      padding: 12px 0;
+      width:auto;
+      padding: 12px 12px;
     }
     .product-category {
       color: #666;
@@ -160,6 +190,11 @@ import { Product } from '../models/product';
     mat-icon {
       color: #3f51b5;
     }
+    mat-list-item {
+      height: 100px !important; 
+      width:auto;
+    }
+    
   `]
 })
 export class ViewProductsDialogComponent {
@@ -167,7 +202,29 @@ export class ViewProductsDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: { 
       supplierName: string;
       contactInfo: string;
+      supplierId: number;
       products: Product[];
-    }
+    },
+    private productService:ProductService
   ) {}
+
+//newly added
+  trackByProductId(index: number, product: Product): number {
+    return product.productId;
+  }
+ 
+  removeProductFromSupplier(productId: number): void {
+    if(confirm('Are you sure you want to delete this product?')){
+      this.productService.removeSupplierToProduct(productId, this.data.supplierId).subscribe(
+        () => {
+          this.data.products = this.data.products.filter(p => p.productId !== productId);
+        },
+        (err) => {
+          console.error('Failed to remove product:', err);
+        }
+      );
+      }
+  }
+  
+  
 }

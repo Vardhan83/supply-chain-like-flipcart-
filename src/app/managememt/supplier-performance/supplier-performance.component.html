@@ -1,5 +1,5 @@
 
-<div class="container">
+<!-- <div class="container">
   <mat-card>
     <mat-card-header>
       <mat-card-title>
@@ -21,25 +21,25 @@
         </div>
       } @else {
         <table mat-table [dataSource]="suppliers()" class="mat-elevation-z8">
-          <!-- ID Column -->
+          <!-- ID Column 
           <ng-container matColumnDef="supplierId">
             <th mat-header-cell *matHeaderCellDef>ID</th>
             <td mat-cell *matCellDef="let supplier">{{ supplier.supplierId }}</td>
           </ng-container>
 
-          <!-- Name Column -->
+          <!-- Name Column 
           <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef>Name</th>
             <td mat-cell *matCellDef="let supplier">{{ supplier.name }}</td>
           </ng-container>
 
-          <!-- Contact Info Column -->
+          <!-- Contact Info Column 
           <ng-container matColumnDef="contactInfo">
             <th mat-header-cell *matHeaderCellDef>Contact Info</th>
             <td mat-cell *matCellDef="let supplier">{{ supplier.contactInfo || 'N/A' }}</td>
           </ng-container>
 
-          <!-- Products Column -->
+          <!-- Products Column 
           <ng-container matColumnDef="products">
             <th mat-header-cell *matHeaderCellDef>Products</th>
             <td mat-cell *matCellDef="let supplier">
@@ -66,7 +66,7 @@
             </td>
           </ng-container>
 
-          <!-- Actions Column -->
+          <!-- Actions Column 
           <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef>Actions</th>
             <td mat-cell *matCellDef="let supplier" class="actions-cell">
@@ -84,6 +84,96 @@
                       (click)="deleteSupplier(supplier)" 
                       matTooltip="Delete" 
                       color="warn">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      }
+    </mat-card-content>
+  </mat-card>
+</div> -->
+
+<div class="container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        <mat-icon>local_shipping</mat-icon>
+        Supplier Management
+      </mat-card-title>
+      <mat-card-actions align="end">
+        <button mat-raised-button color="primary" (click)="openAddSupplierDialog()" matTooltip="Add Supplier">
+          <mat-icon>add</mat-icon> Add Supplier
+        </button>
+      </mat-card-actions>
+    </mat-card-header>
+
+    <mat-card-content>
+      @if (isLoading()) {
+        <div class="loading-spinner">
+          <mat-spinner diameter="40"></mat-spinner>
+          <span>Loading suppliers...</span>
+        </div>
+      } @else {
+        <table mat-table [dataSource]="suppliers()" class="mat-elevation-z8">
+
+          <!-- ID Column -->
+          <ng-container matColumnDef="supplierId">
+            <th mat-header-cell *matHeaderCellDef>ID</th>
+            <td mat-cell *matCellDef="let supplier">{{ supplier.supplierId }}</td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>Name</th>
+            <td mat-cell *matCellDef="let supplier">{{ supplier.name }}</td>
+          </ng-container>
+
+          <!-- Contact Info Column -->
+          <ng-container matColumnDef="contactInfo">
+            <th mat-header-cell *matHeaderCellDef>Contact Info</th>
+            <td mat-cell *matCellDef="let supplier">{{ supplier.contactInfo || 'N/A' }}</td>
+          </ng-container>
+
+          <!-- Products Column -->
+          <!-- Products Column -->
+          <ng-container matColumnDef="products">
+            <th mat-header-cell *matHeaderCellDef>Products</th> 
+            <td mat-cell *matCellDef="let supplier">
+              <span>{{ supplier.productCount || 0 }}</span>
+              <button mat-icon-button (click)="openViewProductsDialog(supplier)" [matTooltip]="'View Assigned Products'">
+                <mat-icon>visibility</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          
+
+          <!-- Actions Column -->
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <td mat-cell *matCellDef="let supplier" class="actions-cell">
+              <button mat-icon-button 
+                      color="primary" 
+                      (click)="openEditSupplierDialog(supplier)" 
+                      matTooltip="Edit Supplier">
+                <mat-icon>edit</mat-icon>
+              </button>
+
+              <button mat-icon-button 
+                      color="accent" 
+                      (click)="openAssignProductsDialog(supplier)" 
+                      matTooltip="Assign Products">
+                <mat-icon>add_link</mat-icon>
+              </button>
+
+              <button mat-icon-button 
+                      color="warn" 
+                      (click)="deleteSupplier(supplier)" 
+                      matTooltip="Delete Supplier">
                 <mat-icon>delete</mat-icon>
               </button>
             </td>
