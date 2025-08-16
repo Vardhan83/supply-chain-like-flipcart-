@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class SupplierService {
-  private apiUrl = 'http://localhost:5050/api/suppliers';
+  private apiUrl = 'http://localhost:6060/api/suppliers';
 
   constructor(private http: HttpClient) {}
 
@@ -33,10 +33,10 @@ export class SupplierService {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 
-  // Assign products to a supplier
-  assignProductsToSupplier(supplierId: number, productIds: number[]): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${supplierId}/products`, productIds);
-  }
+  // Assign products to a suppliergit 
+  // assignProductsToSupplier(supplierId: number, productIds: number[]): Observable<any> {
+  //   return this.http.put(`${this.apiUrl}/${supplierId}/products`, productIds);
+  // }
   // Remove a product from a supplier
   removeProductFromSupplier(supplierId: number, productId: number): Observable<Supplier> {
     return this.http.delete<Supplier>(`${this.apiUrl}/${supplierId}/products/${productId}`);
@@ -46,7 +46,15 @@ export class SupplierService {
     return this.http.get<number>(`${this.apiUrl}/${supplierId}/product-count`);
   }
   getSupplierProducts(supplierId: number) {
-    return this.http.get(`http://localhost:5050/api/suppliers/${supplierId}/products`);
+    return this.http.get(`${this.apiUrl}/${supplierId}/products`);
   }
+
+
+  
+  assignProductsToSupplier(supplierId: number, productIds: number[]) {
+    return this.http.put(`${this.apiUrl}/supplier/${supplierId}/products`, productIds);
+  }
+  
+  
   
 }

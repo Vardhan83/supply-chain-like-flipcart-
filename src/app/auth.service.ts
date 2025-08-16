@@ -8,7 +8,7 @@ import { User, LoginRequest, RegisterRequest ,UserResponse} from './models/login
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:5050/api/auth';
+  private apiUrl = 'http://localhost:6060/api/auth';
   private currentUserSubject = new BehaviorSubject<User | null>(this.getCurrentUserFromStorage());
   currentUser$ = this.currentUserSubject.asObservable();
 
@@ -55,13 +55,13 @@ export class AuthService {
         responseType: 'text' });
   }
   
-  // private getStoredUser(): User | null {
-  //   if (typeof window !== 'undefined') {
-  //     const user = localStorage.getItem('currentUser');
-  //     return user ? JSON.parse(user) : null;
-  //   }
-  //   return null;
-  // }
+  private getStoredUser(): User | null {
+    if (typeof window !== 'undefined') {
+      const user = localStorage.getItem('currentUser');
+      return user ? JSON.parse(user) : null;
+    }
+    return null;
+  }
 
   checkUsername(username: string): Observable<boolean> {
     return this.http.get<boolean>(`${this.apiUrl}/check-username?username=${username}`);

@@ -14,7 +14,7 @@ import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class ShipmentService {
-  private apiUrl = 'http://localhost:5050/api/shipments';
+  private apiUrl = 'http://localhost:6060/api/shipments';
 
   constructor(private http: HttpClient) {}
 

@@ -16,7 +16,7 @@ import { InventorySummary } from '../../models/inventorysummary';
 
 @Injectable({ providedIn: 'root' })
 export class ProductService {
-  private apiUrl = 'http://localhost:5050/api/products';
+  private apiUrl = 'http://localhost:6060/api/products';
 
   constructor(private http: HttpClient) {}
 
@@ -91,6 +91,9 @@ export class ProductService {
   removeSupplierToProduct(productId: number, supplierId: number): Observable<Product> {
       return this.http.delete<Product>(`${this.apiUrl}/${productId}/supplier/${supplierId}`);
     }
-  
+  assignProductsToSupplier(supplierId: number, productIds: number[]) {
+    return this.http.put(`${this.apiUrl}/supplier/${supplierId}/products`, productIds);
+  }
+    
 
 }

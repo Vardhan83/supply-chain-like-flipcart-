@@ -15,7 +15,7 @@ import { OrderRequest } from '../../models/order-request';
 
 @Injectable({ providedIn: 'root' })
 export class OrderService {
-  private apiUrl = 'http://localhost:5050/api/orders';
+  private apiUrl = 'http://localhost:6060/api/orders';
 
   constructor(private http: HttpClient) {}
 
